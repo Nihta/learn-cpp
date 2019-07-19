@@ -1,0 +1,116 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "windows": {
+                "command": "g++",
+                "args": [
+                    "-g",
+                    "${relativeFile}",
+                    "--std=c++17",
+                    "-o",
+                    "${fileBasenameNoExtension}.exe",
+                    "&&",
+                    "cls",
+                    "&&",
+                    "cls",
+                    "&&",
+                    "${fileBasenameNoExtension}.exe"
+                ],
+            },
+            "linux": {
+                "command": "g++",
+                "args": [
+                    "-g",
+                    "${relativeFile}",
+                    "--std=c++17",
+                    "-o",
+                    "${fileBasenameNoExtension}.out",
+                    "&&",
+                    "clear",
+                    "&&",
+                    "./${fileBasenameNoExtension}.out"
+                ]
+            },
+            "osx": {
+                "command": "g++",
+                "args": [
+                    "-g",
+                    "${relativeFile}",
+                    "-lpthread",
+                    "--std=c++11",
+                    "-o",
+                    "${fileBasenameNoExtension}.out"
+                ]
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        // build files để debugging
+        {
+            "label": "build no run nihta",
+            "type": "shell",
+  
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "windows": {
+                "command": "g++",
+                "args": [
+                    "-g",
+                    "${relativeFile}",
+                    "--std=c++17",
+                    "-o",
+                    "${fileBasenameNoExtension}.exe",
+                ]
+            },
+            "linux": {
+                "command": "g++",
+                "args": [
+                    "-g",
+                    "${relativeFile}",
+                    "--std=c++17",
+                    "-o",
+                    "${fileBasenameNoExtension}.out",
+                    "&&",
+                    "clear",
+                    "&&",
+                    "echo",
+                    "Nihta: Đã biên dịch xong <3",
+                    "&&",
+                    "echo",
+                    "Chú ý: Đặt các điểm BREAKPOINTS đúng file cần debugging!!!"
+                ]
+            },
+            "osx": {
+                "command": "g++",
+                "args": [
+                    "-g",
+                    "${relativeFile}",
+                    "-lpthread",
+                    "--std=c++11",
+                    "-o",
+                    "${fileBasenameNoExtension}.out"
+                ]
+            }
+        }
+    ]
+}

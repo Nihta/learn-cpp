@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
+            "name": "(gdb) Launch Nihta",
+            "preLaunchTask": "build no run nihta",
+            "type": "cppdbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceRoot}",
+            "environment": [],
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "logging": {
+                "engineLogging": false,
+                "trace": false
+            },
+            "windows": {
+                "externalConsole": false,
+
+                "program": "${workspaceRoot}/${fileBasenameNoExtension}.exe",
+                "MIMode": "gdb",
+                "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
+            },
+            "linux": {
+                "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
+                "MIMode": "lldb"
+            }
+        }
+    ]
+}
