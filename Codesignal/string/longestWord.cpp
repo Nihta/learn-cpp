@@ -38,27 +38,24 @@ string longestWord(string text)
 
 string longestWord2(string text)
 {
-    regex re("[A-Za-z]+");
-
-    auto begin = sregex_iterator(text.begin(), text.end(), re);
-    auto end = sregex_iterator();
-
     int maxLen = 0;
     string maxStr = "";
-    for (sregex_iterator i = begin; i != end; ++i)
-    {
-        smatch match = *i;
-        string match_str = match.str();
-        if(match_str.length() > maxLen)
-            maxLen = match_str.length(),
-            maxStr = match_str;
-    }
+
+    regex re("[A-Za-z]+");
+    auto strIt = sregex_iterator(text.begin(), text.end(), re);
+
+    for ( ; strIt != sregex_iterator(); ++strIt)
+        if(strIt->str().length() > maxLen)
+            maxLen = strIt->str().length(),
+            maxStr = strIt->str();
+
     return maxStr;
 }
 
 int main()
 {
     string s ="Ready[[[, steady, go!";
-    cout << longestWord(s); // steady
+    cout << longestWord(s) << endl; // steady
+    cout << longestWord2(s) << endl; // steady
     return 0;
 }
