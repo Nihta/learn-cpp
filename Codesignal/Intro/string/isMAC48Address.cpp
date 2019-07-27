@@ -5,7 +5,7 @@ using namespace std;
 
 bool isMAC48Address(string inputString) {
     regex re("^([0-9a-fA-F]{2}[-]){5}([0-9a-fA-F]{2})$");
-    return regex_match(inputString ,re);
+    return regex_match(inputString, re);
 }
 
 int main()
