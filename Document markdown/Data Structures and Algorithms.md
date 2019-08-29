@@ -76,8 +76,8 @@ vector<int> v(10, 5);
 
 // Khởi tạo vector 2 chiều rỗng
 vector < vector<int> > v2;
-// Khởi tạo vector kích thước 5×10
-vector < vector<int> > v2(5, 10);
+// Khởi tạo vector kích thước 5×?
+vector < vector<int> > v2(5);
 // Khởi tạo Vector 5x10 với tất cả phần tử bằng 1
 vector < vector<int> > v2(5, vector<int> (10,1));
 
