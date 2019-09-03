@@ -264,7 +264,6 @@ int main() {
 }
 ```
 
-```cpp
 Và kết quả sau khi thực thi chương trình trên như sau:
 
 ```cpp
