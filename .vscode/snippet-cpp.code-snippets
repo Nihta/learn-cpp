@@ -1,0 +1,17 @@
+{
+	"Init": {
+		"scope": "cpp",
+		"prefix": "init",
+		"body": [
+			"#include <iostream>",
+			"#include <vector>",
+			"using namespace std;",
+			"",
+			"int main() {",
+			"\t$1",
+			"\treturn  0;",
+			"}"
+		],
+		"description": "Init program"
+	}
+}

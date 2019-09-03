@@ -83,6 +83,11 @@
         "thread": "cpp",
         "typeindex": "cpp",
         "valarray": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "charconv": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "regex": "cpp",
+        "string": "cpp"
     }
 }
