@@ -1,6 +1,7 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         
         {
             "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
@@ -9,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
             "externalConsole": false,
@@ -25,11 +26,11 @@
                 "trace": false
             },
             "windows": {
-                "externalConsole": false,
+                "externalConsole": true,
 
                 "program": "${workspaceRoot}/${fileBasenameNoExtension}.exe",
                 "MIMode": "gdb",
-                "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
+                "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
             },
             "linux": {
                 "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
