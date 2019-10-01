@@ -1,4 +1,17 @@
 {
+    // Cấu hình visual code ----------------------------------------------------
+    "editor.fontSize": 16,
+    // "editor.fontWeight": "bold"
+    "editor.cursorBlinking": "expand",
+    "editor.wordWrap": "on",
+    "editor.rulers": [80],
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.tabCompletion": "on",
+    "editor.renderWhitespace": "selection",
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    // -------------------------------------------------------------------------
     "files.exclude": {
         "*.exe": true,
         "*.out": true
@@ -88,6 +101,8 @@
         "iterator": "cpp",
         "memory_resource": "cpp",
         "regex": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "stack": "cpp",
+        "xhash": "cpp"
     }
 }

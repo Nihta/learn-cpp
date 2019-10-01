@@ -3,6 +3,7 @@
 */
 #include <iostream>
 #include <map>
+#include <algorithm>
 using namespace std;
 
 string removeDuplicateCharacters(string s) {
@@ -23,7 +24,16 @@ string removeDuplicateCharacters(string s) {
 	return res;
 }
 
+string removeDuplicateCharacters2(string s) {
+	string res;
+	for(int c: s)
+		if(count(s.begin(), s.end(), c) < 2)
+			res += c;
+	return res;
+}
+
 int main() {
-    cout << removeDuplicateCharacters("abceeffggghhhhhhhik");
+    cout << removeDuplicateCharacters("abceeffggghhhhhhhik") << endl;
+	cout << removeDuplicateCharacters2("abceeffggghhhhhhhik");
     return 0;
 }

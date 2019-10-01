@@ -13,5 +13,39 @@
 			"}"
 		],
 		"description": "Init program"
+	},
+	"Cout vector": {
+		"scope": "cpp",
+		"prefix": "cout-vector",
+		"body": [
+			"ostream &operator<<(ostream &os, vector<${1:int}> v)",
+			"{",
+			"    os << \"(\" << v.size() << \") { \";",
+			"    for (auto it = v.begin(); it != v.end(); it++)",
+			"        os << *it << (it + 1 != v.end() ? \", \" : \" \");",
+			"    os << \"}\";",
+			"    return os;",
+			"}"
+		],
+		"description": "Nạp chồng << vector"
+	},
+	"Cin vector": {
+		"scope": "cpp",
+		"prefix": "cin-vector",
+		"body": [
+			"istream &operator>>(istream &is, vector<${1:int}> &v)",
+			"{",
+			"    int numOfElm;",
+			"    is >> numOfElm;",
+			"    ${1:int} data;",
+			"    while (numOfElm--)",
+			"    {",
+			"        is >> data;",
+			"        v.push_back(data);",
+			"    }",
+			"    return is;",
+			"}"
+		],
+		"description": "Nhập vector dạng: SốLượngPhầnTử Phầntử1 PhầnTử2 ..."
 	}
 }
