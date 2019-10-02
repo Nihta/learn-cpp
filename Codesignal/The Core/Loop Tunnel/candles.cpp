@@ -25,7 +25,7 @@ int candles(int candlesNumber, int makeNew) {
  * nến thừa vừa đốt
  */
 int candles2(int c, int n) {
-    return c >= n ? n + candles(c - n + 1, n) : c;
+    return c >= n ? n + candles2(c - n + 1, n) : c;
 }
 
 int main() {
