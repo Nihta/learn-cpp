@@ -6,19 +6,21 @@
 
 | | | | | | |
 |-|-|-|-|-|-|
-+|-|*|/|%|^
-&|\||~|!|,|=
-<|>|<=|>=|++|--
-<<|>>|==|!=|&&|||
-+=|-=|/=|%=|^=|&=
-|=|*=|<<=|>>=|[]|()
-->|->*|new|new []|delete|delete []
+`+`|`-`|`*`|`/`|`%`|`^`
+`&`|`|`|`~`|`!`|`,`|`=`
+`<`|`>`|`<=`|`>=`|`++`|`--`
+`<<`|`>>`|`==`|`!=`|`&&`|`||`
+`+=`|`-=`|`/=`|`%=`|`^=`|`&=`
+|`=`|`*=`|`<<=`|`>>=`|`[]`|`()`
+`->`|`->*`|`new`|`new []`|`delete`|`delete []`
 
 **Các toán tử không thể được nạp chồng**:
 
 | | | | |
 |-|-|-|-|
-::|.*|.|? :
+`::`|`.*`|`.`|`? :`
+
+**Cách nạp chồng**:
 
 |Dạng toán tử|Phương thức của lớp|Hàm toàn cục|
 |--|--|--|
@@ -28,325 +30,403 @@ aa@|aa.operator@(int)|operator@(aa,int)
 
 ## Details
 
-* [Toán tử một ngôi](#Nạp-chồng-toán-tử-đơn)
-* [Toán tử đôi](#Nạp-chồng-toán-tử-đôi)
-* [Toán tử quan hệ](#Nạp-chồng-toán-tử-quan-hệ)
-* [Toán tử input/output](#Nạp-chồng-toán-tử-input/output)
-* [Toán tử ++ và --](#Nạp-chồng-toán-tử-++-và---)
-* [Toán tự gán](#Nạp-chồng-toán-tự-gán)
-* [Toán tử gọi hàm ()](#Nạp-chồng-toán-tử-gọi-hàm-())
-* [Toán tử []](#Nạp-chồng-toán-tử-[])
-* [Toán tử truy cập thành viên lớp ->](#Nạp-chồng-toán-tử-truy-cập-thành-viên-lớp-`->`)
+- [Toán tử một ngôi](#Nạp-chồng-toán-tử-đơn)
+- [Toán tử đôi](#Nạp-chồng-toán-tử-đôi)
+- [Toán tử quan hệ](#Nạp-chồng-toán-tử-quan-hệ)
+- [Toán tử input/output](#Nạp-chồng-toán-tử-input/output)
+- [Toán tử ++ và --](#Nạp-chồng-toán-tử-++-và---)
+- [Toán tự gán](#Nạp-chồng-toán-tự-gán)
+- [Toán tử gọi hàm ()](#Nạp-chồng-toán-tử-gọi-hàm-())
+- [Toán tử []](#Nạp-chồng-toán-tử-[])
+- [Toán tử truy cập thành viên lớp ->](#Nạp-chồng-toán-tử-truy-cập-thành-viên-lớp-`->`)
+
+-----
 
 ## Nạp chồng toán tử đơn
 
 Toán tử một ngôi (unary) trong c++ hoạt động trên một toán hạng đơn:
 
-* Nạp chồng toán tử tăng `++` và toán tử giảm `--`
-* Toán tử một ngôi `-`
-* Toán tử logic phủ định `!`
+- Nạp chồng toán tử tăng `++` và toán tử giảm `--`
+- Toán tử một ngôi `-`
+- Toán tử logic phủ định `!`
 
 Toán tử một ngôi hoạt động trên đối tượng mà chúng được gọi, và thường thì toán tử này xuất hiện bên trái đối tượng, dạng như: `!obj`, `-obj`, và `++obj`, nhưng đôi khi chúng có thể sử dụng như là hậu tố giống như `obj++` hoặc `obj--`.
 
-Ví dụ sau giải thích cách toán tử`-` có thể được nạp chồng với sự sử dụng tiền tố cũng như hậu tố.
+Ví dụ:
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-class KhoangCach {
-   private:
-        int met;
-        int centimet;
-   public:
-        // constructor
-        KhoangCach() {
-            met = 0;
-            centimet = 0;
-        }
-        KhoangCach(int m, int c) {
-            met = m;
-            centimet = c;
-        }
+class Fraction
+{
+private:
+    int numerator;
+    int denominator;
 
-        // Phương thức hiện thị khoảng cách
-        void hienthiKC() {
-            cout << "Khoang cach bang m la: " << met << endl;
-            cout << "Khoang cach bang cm la: " << centimet << endl;
-        }
+public:
+    // Constructor
+    Fraction(int numerator = 0, int denominator = 1)
+    {
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+    // Copy constructor
+    Fraction(const Fraction &x)
+    {
+        this->numerator = x.numerator;
+        this->denominator = x.denominator;
+    }
+    // Hiện thị phân số
+    void display()
+    {
+        cout << this->numerator << "/" << this->denominator << endl;
+    }
+    // Cộng hai phân số
+    Fraction operator+(Fraction b)
+    {
+        Fraction res;
+        res.numerator = this->numerator * b.denominator + b.numerator * this->denominator;
+        res.denominator = this->denominator * b.denominator;
+        return res;
+    }
 
-        // Nạp chồng toán tử -
-        KhoangCach operator-() {
-            met = -met;
-            centimet = -centimet;
-            return KhoangCach(met, centimet);
-        }
+    // Phương thức của lớp
+    Fraction operator-()
+    {
+        if (this->denominator < 0)
+            this->denominator *= -1;
+        else
+            this->numerator *= -1;
+        return *this;
+    }
+
+    // friend Fraction operator-(Fraction &X);
 };
 
-int main() {
-    KhoangCach K1(20, 6), K2(-6, 15);
+/* Hàm toàn cục
+Fraction operator-(Fraction &X)
+{
+    if (X.denominator < 0)
+        X.denominator *= -1;
+    else
+        X.numerator *= -1;
+    return X;
+}
+*/
 
-    -K1;
-    K1.hienthiKC();
+int main()
+{
+    Fraction a(1, 1), b(1, 2);
+    -b;
+    b.display(); // -1/2
 
-    -K2;
-    K2.hienthiKC();
-
+    Fraction res = a + -b; // 1 + 1/2
+    res.display();
     return 0;
 }
 ```
 
-[TOP^](#!)
+[^ Back to top ^](#Details)
 
 -----
 
 ## Nạp chồng toán tử đôi
 
-* Toán tử cộng `+`, trừ `-`, nhân `*` toán tử chia `/`.
+- Toán tử cộng `+`, trừ `-`, nhân `*` toán tử chia `/`.
 
-Ví dụ sau giải thích cách toán tử cộng `+` có thể được nạp chồng trong C++.
+Ví dụ sau giải thích cách toán tử cộng `+` có thể được nạp chồng trong C++:
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-class Box {
-    private:
-        double chieudai;
-        double chieurong;
-        double chieucao;
-    public:
-        double tinhTheTich() {
-            return chieudai * chieurong * chieucao;
-        }
+class Fraction
+{
+private:
+    int numerator;
+    int denominator;
 
-        void setChieuDai(double dai) {
-            chieudai = dai;
-        }
+public:
+    // Constructor
+    Fraction(int numerator = 0, int denominator = 1)
+    {
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+    // Copy constructor
+    Fraction(const Fraction &x)
+    {
+        this->numerator = x.numerator;
+        this->denominator = x.denominator;
+    }
 
-        void setChieuRong(double rong) {
-            chieurong = rong;
-        }
+    // Phương thức của lớp
+    Fraction operator+(Fraction b)
+    {
+        Fraction res;
+        res.numerator = this->numerator * b.denominator + b.numerator * this->denominator;
+        res.denominator = this->denominator * b.denominator;
+        return res;
+    }
 
-        void setChieuCao(double cao) {
-            chieucao = cao;
-        }
-
-        // Nạp chồng toán tử cộng
-        Box operator+(const Box& b) {
-            Box box;
-            box.chieudai = this->chieudai + b.chieudai;
-            box.chieurong = this->chieurong + b.chieurong;
-            box.chieucao = this->chieucao + b.chieucao;
-            return box;
-        }
+    // friend Fraction operator+(Fraction a, Fraction b);
+    void display();
 };
 
-int main() {
-    Box Box1, Box2, Box3;
-    double thetich;
+void Fraction::display()
+{
+    cout << this->numerator << "/" << this->denominator << endl;
+}
 
-    Box1.setChieuDai(3.0);
-    Box1.setChieuRong(4.0);
-    Box1.setChieuCao(5.0);
+/* Hàm toàn cục
+Fraction operator+(Fraction a, Fraction b)
+{
+    Fraction res;
+    res.numerator = a.numerator * b.denominator + b.numerator * a.denominator;
+    res.denominator = a.denominator * b.denominator;
+    return res;
+}
+*/
 
-    Box2.setChieuDai(6.0);
-    Box2.setChieuRong(7.0);
-    Box2.setChieuCao(8.0);
+int main()
+{
+    Fraction a(1, 2);
+    Fraction b(1, 3);
 
-    thetich = Box1.tinhTheTich();
-    cout << "The tich cua Box1 : " << thetich <<endl;
-
-    thetich = Box2.tinhTheTich();
-    cout << "The tich cua Box2 : " << thetich <<endl;
-
-    Box3 = Box1 + Box2;
-
-    thetich = Box3.tinhTheTich();
-    cout << "The tich cua Box3 : " << thetich <<endl;
+    Fraction sum = a + b;
+    sum.display();
 
     return 0;
 }
+
 ```
 
------
+[^ Back to top ^](#Details)
 
-[TOP^](#!)
+-----
 
 ## Nạp chồng toán tử quan hệ
 
 Có nhiều toán tử quan hệ như `<`, `>`, `<=`, `>=`, `==`, ...
 
-Bạn có thể nạp chồng bất kỳ toán tử quan hệ nào, mà có thể được sử dụng để so sánh các đối tượng của một lớp.
-
 ```cpp
 #include <iostream>
 using namespace std;
 
-class KhoangCach {
-   private:
-        int met;
-        int centimet;
-   public:
-        KhoangCach() {
-                met = 0;
-                centimet = 0;
-            }
-        KhoangCach(int m, int c) {
-                met = m;
-                centimet = c;
-        }
+class Fraction
+{
+private:
+    int numerator;
+    int denominator;
 
-        bool operator<(const KhoangCach& k) {
-            if (this->met < k.met)
-                return true;
-            if (this->met == k.met && this->centimet < k.centimet)
-                return true;
-            return false;
-        }
+public:
+    // Constructor
+    Fraction(int numerator = 0, int denominator = 1)
+    {
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+    // Copy constructor
+    Fraction(const Fraction &x)
+    {
+        this->numerator = x.numerator;
+        this->denominator = x.denominator;
+    }
+    // Hiện thị phân số
+    void display()
+    {
+        cout << this->numerator << "/" << this->denominator << endl;
+    }
+
+    // Phương thức lớp
+    bool operator>(Fraction b)
+    {
+        return this->numerator * b.denominator > b.numerator * this->denominator;
+    }
+
+    // friend bool operator>(Fraction a, Fraction b);
 };
 
-int main() {
-   KhoangCach K1(23, 15), K2(17, 46);
+/* Hàm toàn cục
+bool operator>(Fraction a, Fraction b)
+{
+    return a.numerator*b.denominator > b.numerator * a.denominator;
+}
+*/
 
-   if( K1 < K2 )
-        cout << "K1 la ngan hon K2 " << endl;
-   else
-        cout << "K2 la ngan hon K1 " << endl;
+int main()
+{
+    Fraction a(1, 2);
+    Fraction b(1, 3);
 
-   return 0;
+    if (a > b)
+        cout << "Phan so a lon hon phan so b";
+    else
+        cout << "Phan so b lon hon phan so a";
+
+    return 0;
 }
 ```
 
------
+[^ Back to top ^](#Details)
 
-[TOP^](#!)
+-----
 
 ## Nạp chồng toán tử input/output
 
-C++ có thể input và output các kiểu dữ liệu có sẵn bởi sử dụng toán tử trích luồng >> và toán tử chèn luồng <<. Các toán tử trích luồng và chèn luồng cũng có thể được nạp chồng để thực hiện input và output cho các kiểu tự định nghĩa (user-defined).
+C++ có thể input và output các kiểu dữ liệu có sẵn bởi sử dụng toán tử trích luồng `>>` và toán tử chèn luồng `<<`. Các toán tử trích luồng và chèn luồng cũng có thể được nạp chồng để thực hiện input và output cho các kiểu tự định nghĩa (user-defined).
 
-Ở đây, nó là quan trọng để tạo một hàm nạp chồng toán tử một friend của lớp, bởi vì nó sẽ được gọi mà không tạo một đối tượng.
+Chúng ta sử dụng hàm `friend` mà không phải hàm của phương thức là vì bên trái toán tử là `cin` rồi đến toán tử `>>` rồi đến class cần xử lí. Loại này có dạng `aa@bb` Tuy nhiên `aa` trong bảng [trên](#Overview) là đối tượng của class hiện tại, mà `cin` hay `cout` là không thuộc class hiện tại, nên không thể khai báo hàm của phương thức. Nên buộc tại đây chúng ta sử dụng `friend`.
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-class KhoangCach {
-    private:
-        int met;
-        int centimet;
-    public:
-        KhoangCach() {
-            met = 0;
-            centimet = 0;
-        }
-        KhoangCach(int m, int c) {
-            met = m;
-            centimet = c;
-        }
+class Fraction
+{
+private:
+    int numerator;
+    int denominator;
 
-        friend ostream &operator<<(ostream &output, const KhoangCach &K) {
-            output << "\nDo dai bang m la: " << K.met << "\nVa do dai bang cm la: " << K.centimet;
-            return output;
-        }
+public:
+    // Constructor
+    Fraction(int numerator = 0, int denominator = 1)
+    {
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+    // Copy constructor
+    Fraction(const Fraction &x)
+    {
+        this->numerator = x.numerator;
+        this->denominator = x.denominator;
+    }
 
-        friend istream &operator>>(istream &input, KhoangCach &K) {
-            input >> K.met >> K.centimet;
-            return input;
-        }
+    friend ostream &operator<<(ostream &output, const Fraction &X);
+
+    friend istream &operator>>(istream &input, Fraction &X);
 };
 
-int main() {
-    KhoangCach K1(23, 14), K2(14, 35), K3;
+ostream &operator<<(ostream &output, const Fraction &X)
+{
+    output << X.numerator << "/" << X.denominator;
+    return output;
+}
 
-    cout << "Nhap gia tri cua doi tuong K3: ";
-    cin >> K3;
+istream &operator>>(istream &input, Fraction &X)
+{
+    char tmp;
+    input >> X.numerator >> tmp >> X.denominator;
+    return input;
+}
 
-    cout << "Khoang cach dau tien: " << K1 << endl;
-
-    cout << "Khoang cach thu hai: " << K2 << endl;
-
-    cout << "Khoang cach thu ba: " << K3 << endl;
+int main()
+{
+    Fraction a;
+    cout << "Nhap phan so (dang a/b): ";
+    cin >> a;
+    cout << "Phan so vua nhap la: " << a;
 
     return 0;
 }
 ```
 
------
+[^ Back to top ^](#Details)
 
-[TOP^](#!)
+-----
 
 ## Nạp chồng toán tử ++ và --
 
+**Nạp chồng phương thức lớp**:
+
 ```cpp
 #include <iostream>
 using namespace std;
 
-class ThoiGian {
-    private:
-        int gio;
-        int phut;
-    public:
-        // constructor
-        ThoiGian() {
-            gio = 0;
-            phut = 0;
-        }
-        ThoiGian(int h, int m) {
-            gio = h;
-            phut = m;
-        }
+class Fraction
+{
+private:
+    int numerator;
+    int denominator;
 
-        void hienthiTG() {
-            cout << "Gio: " << gio << " Phut: " << phut << endl;
-        }
+public:
+    // Constructor
+    Fraction(int numerator = 0, int denominator = 1)
+    {
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+    // Copy constructor
+    Fraction(const Fraction &x)
+    {
+        this->numerator = x.numerator;
+        this->denominator = x.denominator;
+    }
+    // Hiện thị phân số
+    void display()
+    {
+        cout << this->numerator << "/" << this->denominator << endl;
+    }
 
-        // Nạp chồng toán tử ++ (tiền tố)
-        ThoiGian operator++() {
-            ++phut;
-            if(phut >= 60) {
-                ++gio;
-                phut -= 60;
-            }
-            return ThoiGian(gio, phut);
-        }
+    // ++ Tiền tố
+    Fraction operator++()
+    {
+        this->numerator += 1;
+        this->denominator += 1;
+        return *this;
+    }
 
-        // Nạp chồng toán tử ++ (hậu tố)
-        ThoiGian operator++(int) {
-            // Lưu giá trị ban đầu
-            ThoiGian T(gio, phut);
-            // Tăng đối tượng này
-            ++phut;
-            if (phut >= 60) {
-                ++gio;
-                phut -= 60;
-            }
-            // Trả về giá trị trước khi tăng
-            return T;
-        }
+    // ++ Hậu tố
+    // int ở đâu là cú pháp để phân biệt tiền tố và hậu tố, không liên quan gì đến kiểu dữ liệu
+    Fraction operator++(int)
+    {
+        Fraction dataOld = *this;
+       this->numerator += 1;
+       this->denominator += 1;
+        return dataOld;
+    }
 };
 
-int main() {
-    ThoiGian T1(6, 59), T2(19,24);
-    ++T1;
-    T1.hienthiTG();
+int main()
+{
+    Fraction a(1, 1), b(1, 1);
 
-    ++T1;
-    T1.hienthiTG();
+    // Test tiền tố
+    (++a).display(); //    2/2
+    a.display();     //    2/2
 
-    T2++;
-    T2.hienthiTG();
-
-    T2++;
-    T2.hienthiTG();
+    // Test hậu tố
+    (b++).display(); //    1/1
+    b.display();     //    2/2
     return 0;
 }
 ```
 
------
+**Nạp chồng hàm toàn cục**:
 
-[TOP^](#!)
+```cpp
+// ++ Tiền tố
+Fraction operator++(Fraction &X)
+{
+    X.numerator += 1;
+    X.denominator += 1;
+    return X;
+}
+
+// ++ Hậu tố
+Fraction operator++(Fraction &X, int)
+{
+    Fraction dataOld = X;
+    X.numerator += 1;
+    X.denominator += 1;
+    return dataOld;
+}
+```
+
+[^ Back to top ^](#Details)
+
+-----
 
 ## Nạp chồng toán tự gán
 
@@ -356,111 +436,113 @@ Bạn có thể nạp chồng toán tử gán `=` như khi bạn có thể với
 #include <iostream>
 using namespace std;
 
-class KhoangCach {
-    private:
-        int met;
-        int centimet;
-    public:
-        // constructor
-        KhoangCach() {
-            met = 0;
-            centimet = 0;
-        }
+class Fraction
+{
+private:
+    int numerator;
+    int denominator;
 
-        KhoangCach(int m, int c) {
-            met = m;
-            centimet = c;
-        }
+public:
+    // Constructor
+    Fraction(int numerator = 0, int denominator = 1)
+    {
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+    // Copy constructor
+    Fraction(const Fraction &x)
+    {
+        this->numerator = x.numerator;
+        this->denominator = x.denominator;
+    }
+    // Hiện thị phân số
+    void display()
+    {
+        cout << this->numerator << "/" << this->denominator << endl;
+    }
 
-        void operator=(const KhoangCach &K) {
-            met = K.met;
-            centimet = K.centimet;
-        }
-
-        void hienthiKC() {
-            cout << "\nDo dai bang m la: " << met << "\nVa do dai bang cm la: " <<  centimet << endl;
-        }
+    friend void operator=(const Fraction &b)
+    {
+        this->numerator = X.numerator;
+        this->denominator = X.denominator;
+    }
 };
 
-int main() {
-    KhoangCach K1(2, 113), K2(1, 69);
-
-    cout << "Khoang cach dau tien: ";
-    K1.hienthiKC();
-
-    cout << "Khoang cach thu hai:";
-    K2.hienthiKC();
-
-    K1 = K2;
-
-    cout << "Khoang cach dau tien: ";
-    K1.hienthiKC();
-
+int main()
+{
+    Fraction a(3, 4), b = a;
+    b.display();
     return 0;
 }
 ```
+
+[^ Back to top ^](#Details)
 
 -----
 
 ## Nạp chồng toán tử gọi hàm ()
 
-Toán tử gọi hàm `()` trong C++ có thể được nạp chồng cho các đối tượng của kiểu lớp. Khi bạn nạp chồng `()`, bạn đang không tạo một cách mới để gọi một hàm. Đúng hơn là, bạn đang tạo một hàm toán tử mà có thể được truyền số tham số tùy ý.
+Toán tử gọi hàm `()` trong C++ có thể được nạp chồng cho các đối tượng của kiểu lớp.
+
+Khi nạp chồng `()`, ta không tạo một cách mới để gọi một hàm mà là tạo một hàm toán tử mà có thể được truyền số tham số tùy ý.
 
 ```cpp
 #include <iostream>
 using namespace std;
 
-class KhoangCach {
-    private:
-        int met;
-        int centimet;
-    public:
-        // constructor
-        KhoangCach() {
-            met = 0;
-            centimet = 0;
-        }
-        KhoangCach(int m, int c) {
-            met = m;
-            centimet = c;
-        }
+class Fraction
+{
+private:
+    int numerator;
+    int denominator;
 
-        // Nạp chồng toán tử gọi hàm
-        KhoangCach operator()(int x, int y, int z) {
-            KhoangCach K;
+public:
+    // Constructor
+    Fraction(int numerator = 0, int denominator = 1)
+    {
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+    // Copy constructor
+    Fraction(const Fraction &x)
+    {
+        this->numerator = x.numerator;
+        this->denominator = x.denominator;
+    }
+    // Hiện thị phân số
+    void display()
+    {
+        cout << this->numerator << "/" << this->denominator << endl;
+    }
 
-            K.met = x + y + 5;
-            K.centimet = y - z + 20 ;
-            return K;
-        }
-
-        void hienthiKC() {
-            cout << "\nDo dai bang m la: " << met <<  "\nVa do dai bang cm la: " <<  centimet << endl;
-        }
+    // Phương thức lớp
+    Fraction operator()(int x, int y, int z)
+    {
+        Fraction res;
+        res.numerator = x * z + y;
+        res.denominator = z;
+        return res;
+    }
 };
 
-int main() {
-    KhoangCach K1(24, 36), K2;
-
-    cout << "Khoang cach dau tien la: ";
-    K1.hienthiKC();
-
-    K2 = K1(15, 15, 15);
-
-    cout << "Khoang cach thu hai la: ";
-    K2.hienthiKC();
-
+int main()
+{
+    Fraction a(1, 2), b;
+    a.display();
+    b = a(1,2,3);
+    a.display();
+    b.display();
     return 0;
 }
 ```
 
------
+[^ Back to top ^](#Details)
 
-[TOP^](#!)
+-----
 
 ## Nạp chồng toán tử []
 
-Toán tử subscript [] trong C++ thường được sử dụng để truy cập các phần tử mảng. Toán tử này có thể được nạp chồng để nâng cao tính năng đang tồn tại về mảng trong C++ (do vậy, có thể gọi là toán tử chỉ số mảng).
+Toán tử subscript `[]` trong C++ thường được sử dụng để truy cập các phần tử mảng. Toán tử này có thể được nạp chồng để nâng cao tính năng đang tồn tại về mảng trong C++ (do vậy, có thể gọi là toán tử chỉ số mảng).
 
 ```cpp
 #include <iostream>
@@ -498,9 +580,9 @@ int main() {
 }
 ```
 
------
+[^ Back to top ^](#Details)
 
-[TOP^](#!)
+-----
 
 ## Nạp chồng toán tử truy cập thành viên lớp `->`
 
@@ -604,4 +686,6 @@ int main() {
 }
 ```
 
-[TOP^](#!)
+[^ Back to top ^](#Details)
+
+-----
