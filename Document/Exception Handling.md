@@ -18,11 +18,11 @@ Ngoại lệ có thể thuộc bất kì kiểu dữ liệu bất kỳ của C++
 
 Quy trình gọi hàm và trả về trong trường hợp bình thường:
 
-![img](img/exception1.png)
+![img](../data/exception1.png)
 
 Quy trình ném và bắt ngoại lệ tại `member_function()`:
 
-![img](img/exception2.png)
+![img](../data/exception2.png)
 
 Cơ chế xử lý ngoại lệ của C++ có 3 tính năng chính:
 
