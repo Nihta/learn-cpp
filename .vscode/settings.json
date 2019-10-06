@@ -103,6 +103,11 @@
         "regex": "cpp",
         "string": "cpp",
         "stack": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "locale": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp"
     }
 }
