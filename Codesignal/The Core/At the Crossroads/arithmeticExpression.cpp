@@ -13,6 +13,7 @@ bool arithmeticExpression(int a, int b, int c) {
 }
 
 int main() {
+    cout << int('A');
     cout << boolalpha << arithmeticExpression(50, 10, 5);
     return 0;
 }
