@@ -1,9 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-#include <windows.h>
-
-// Chỉnh thời gian delay giữa các bước
-#define delay Sleep(1000);
 
 // In size phần tử của mảng arr bắt đầu từ start
 void printArray(int arr[], int start, int size)
@@ -16,10 +12,8 @@ void printArray(int arr[], int start, int size)
 int findB(int arr[], int size, int indexCommaCurent)
 {
     for (int i = 0; i < size; i++)
-    {
         if (arr[i] == 1)
             return indexCommaCurent - (i + 1);
-    }
     return 0;
 }
 
@@ -132,8 +126,6 @@ void solution(double X)
     for (int i = 0; i < size2; i++)
         binFloat[size1 + i] = tmp2[i];
 
-    delay(1000);
-
     // Bước 1
     printf("Buoc 1: X = %c", X < 0 ? '-' : ' ');
     // In dữ liệu
@@ -143,8 +135,6 @@ void solution(double X)
     if (size2 != 0)
         printf(",");
     printArray(tmp2, 0, size2);
-
-    delay(1000);
 
     // Bước 2
     printf("\nBuoc 2: X = %c", X < 0 ? '-' : ' ');
@@ -160,12 +150,10 @@ void solution(double X)
         printf("0");
     printf(" * 2^(%d)", b);
 
-    delay(1000);
-
     // Bước 3
     int result[80] = {0};
     printf("\nBuoc 3: Ta co:\n");
-    delay(1000);
+
     // Tìm S
     if (X >= 0)
     {
@@ -177,25 +165,23 @@ void solution(double X)
         result[0] = 1;
         printf("\tS = 1, vi X < 0\n");
     }
-    delay(1000);
+
     // Tìm E
     int E = b + 16383;
     printf("\tE - 16383 = %d => E = %d = ", b, E);
     handleE(result, E);
     printArray(result, 1, 15);
-    delay(1000);
+
     // Tìm M
     printf("\n\tM = ");
     handleM(result, binFloat, indexComma);
     printArray(result, 16, 64);
 
-    delay(1000);
-
     // Bước 4
     // In mã bin
     printf("\n => X = ");
     printBin(result);
-    delay(1000);
+
     // In mã hex
     printf("\n      = ");
     printBinToHex(result);

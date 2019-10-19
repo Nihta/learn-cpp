@@ -1,145 +1,286 @@
-#include<iostream>
-using namespace std;
+#include <stdio.h>
 
-struct node
+struct Node
 {
 	int data;
-	// Địa chỉ node phía sau
-	node *next;
+	Node *next;
 };
 
-// Node đầu tiên
-node *start;
-
-// Hiện thị Linked List
-void show()
+Node *makeNode(int n)
 {
-	node *t = start;
+	Node *tmp = new Node;
+	tmp->data = n;
+	tmp->next = NULL;
+	return tmp;
+}
 
-	while(t != NULL)
+struct List
+{
+	Node *first = NULL;
+	Node *last = NULL;
+};
+
+// Kiểm tra list trống hay không
+bool isEmpty(const List &L)
+{
+	if (L.first == NULL)
+		return true;
+	else
+		return false;
+}
+
+// Số Lượng node của list
+int size(const List &L)
+{
+	int size = 0;
+	for (Node *p = L.first; p != NULL; p = p->next)
+		size++;
+	return size;
+}
+
+// In thông tin của list
+void infoList(List L)
+{
+	if (isEmpty(L))
 	{
-		cout << t->data << "\t";
-		t = t->next;
+		printf("Danh sach trong!");
+	}
+	else
+	{
+		printf("List: ");
+		for (Node *p = L.first; p != NULL; p = p->next)
+			printf("%d ", p->data);
+		printf("\nSize: %d\n", size(L));
+		printf("First: %d\n", L.first->data);
+		printf("Last: %d\n", L.last->data);
 	}
 }
 
-// Chèn vào cuối Linked List
-void insert(int x)
+// Chèn node vào đầu
+void insertHead(List &L, Node *p)
 {
-	node *t = start;
-
-	// Nếu Linked List có ít nhất 1 node
-	if (start != NULL)
+	if (isEmpty(L)) // Nếu như list không có Node nào
 	{
-		// Tìm đến node cuối cùng
-		while(t->next != NULL)
-			t=t->next;
-
-		// Chèn node mới vào cuối Linked List
-		node *n= new node;
-		t->next = n;
-		n->data = x;
-		n->next = NULL;
+		L.first = L.last = p;
 	}
-	else // TH Linked List chưa có node nào
+	else // Nếu như list >= 1 Node
 	{
-		node *n= new node;
-		n->data = x;
-		n->next = NULL;
-		start = n;
+		p->next = L.first;
+		L.first = p;
 	}
 }
 
-// Tìm kiếm
-void search(int x)
+// Chèn node vào cuối list
+void insertTail(List &L, Node *p)
 {
-	node *t= start;
-
-	int found = 0;
-	// Lặp cho dến node cuối cùng
-	while(t != NULL)
+	if (isEmpty(L)) // Nếu như list không có Node nào
 	{
-		if(t->data == x)
+		L.first = L.last = p;
+	}
+	else // Nếu như list >= 1 Node
+	{
+		L.last->next = p;
+		L.last = p;
+	}
+}
+
+// Chèn node vào list dựa vào index
+void insert(List &L, int index, Node *p)
+{
+	int sizeL = size(L);
+	if (index == 0)
+	{
+		insertHead(L, p);
+	}
+	else if (index == sizeL)
+	{
+		insertTail(L, p);
+	}
+	else if (0 < index && index < size(L))
+	{
+		Node *q = L.first;
+		while (index != 1)
 		{
-			cout << "\nTim thay!";
-			found = 1;
-			break;
+			index--;
+			q = q->next;
 		}
-		t = t->next;
+		p->next = q->next;
+		q->next = p;
 	}
-
-	if(found == 0)
-		cout<<"\nKhong tim thay";
+	else
+	{
+		printf("Vi tri chen khong hop le!\n");
+	}
 }
 
-//
-void remove(int x){
-
-	if( start == NULL ){
-		cout<<"\nLinked List trong!";
-		return ;
-	}
-	else if( start->data == x ) // Trường hợp x nằm ngay đầu Linked List
+// Xóa node đầu
+void removeHead(List &L)
+{
+	if (isEmpty(L)) // Nếu list không có node nào
 	{
-		node *temp = start;
-		// Node thứ 2 trở thành first node
-		start = start->next;
-		delete temp;
-		return ;
+		printf("Khong co phan tu nao de xoa!\n");
 	}
-
-	node *temp = start, *parent = start;
-	// Lặp cho đến khi hết node hoặc tìm thấy node có giá trị = x
-	while( temp != NULL && temp->data != x )
+	else if (L.first->next == NULL) // Nếu list có một node
 	{
-		parent = temp;
-		temp = temp->next;
+		L.first = L.last = NULL;
 	}
-
-	if( temp == NULL ){
-		cout << endl << x <<" khong ton tai!\nKhong the xoa";
-		return ;
+	else // Nếu như list >= 2 Node
+	{
+		Node *tmp = L.first;
+		L.first = L.first->next;
+		delete tmp;
 	}
-
-	// Parent là node ngay phía trước temp
-	parent->next = temp->next;
-	delete temp;
 }
 
+// Xóa node cuối list
+void removeTail(List &L)
+{
+	if (isEmpty(L)) // Nếu list không có node nào
+	{
+		printf("Khong co phan tu nao de xoa!\n");
+	}
+	else if (L.first->next == NULL) // Nếu list có một node
+	{
+		L.first = L.last = NULL;
+	}
+	else // Nếu như list >= 2 Node
+	{
+		for (Node *p = L.first; p != NULL; p = p->next)
+		{
+			if (p->next == L.last)
+			{
+				delete L.last;
+				L.last = p;
+				L.last->next = NULL;
+			}
+		}
+	}
+}
 
+// Xóa dựa vào index
+void removeIndex(List &L, int index)
+{
+	int sizeL = size(L);
+	if (index == 0)
+	{
+		removeHead(L);
+	}
+	else if (index + 1 == sizeL)
+	{
+		removeTail(L);
+	}
+	else if (0 < index && index < sizeL)
+	{
+		Node *q = L.first;
+		while (index != 1)
+		{
+			index--;
+			q = q->next;
+		}
+
+		Node *tmp = q->next;
+		q->next = q->next->next;
+		delete tmp;
+	}
+	else
+	{
+		printf("Vi tri xoa khong hop le!\n");
+	}
+}
+
+// Xóa toàn bộ List
+void clear(List &L)
+{
+	Node *p = L.first;
+	while (p != NULL)
+	{
+		Node *tmp = p;
+		p = p->next;
+		delete tmp;
+	}
+	L.first = L.last = NULL;
+}
+
+// Tìm kiếm node dựa vào index
+Node *findIndex(const List &L, int index)
+{
+	for (Node *p = L.first; p != NULL; p = p->next)
+	{
+		if (index == 0)
+			return p;
+		index--;
+	}
+	return NULL;
+}
+
+// Tìm kiếm vị trí của node có data = value
+int findValue(const List L, int value)
+{
+	int index = 0;
+	for (Node *p = L.first; p != NULL; p = p->next)
+	{
+		if (p->data == value)
+			return index;
+		index++;
+	}
+	return -1;
+}
 
 int main()
 {
-	int choice, x;
-	do
+	// Khởi tạo list
+	List L;
+
+	// Chèn vào đầu, cuối
+	insertHead(L, makeNode(3));
+	insertHead(L, makeNode(2));
+	insertHead(L, makeNode(1));
+	insertHead(L, makeNode(0));
+	insertTail(L, makeNode(4));
+	insertTail(L, makeNode(5));
+	insertTail(L, makeNode(6));
+	infoList(L);
+	printf("------------------------------------\n");
+
+	// Xóa đầu, cuối
+	removeHead(L);
+	removeTail(L);
+	infoList(L);
+	printf("------------------------------------\n");
+
+	// Chèn ở index
+	insert(L, 4, makeNode(99));
+	infoList(L);
+	printf("------------------------------------\n");
+
+	// Xóa ở index
+	removeIndex(L, 4);
+	infoList(L);
+	printf("------------------------------------\n");
+
+	// Tìm kiếm theo index
+	int index = 4;
+	if (findIndex(L, index) != NULL)
 	{
-		cout << "\n1. Insert";
-		cout << "\n2. Delete";
-		cout << "\n3. Search";
-		cout << "\n4. Print";
-		cout << "\n0. Exit";
-		cout << "\n\nEnter you choice : ";
-		cin >> choice; 
-		switch (choice)
-		{
-			case 1 : 	cout << "\nEnter the element to be inserted : ";
-					 	cin >> x;
-					 	insert(x);
-						break;
-			case 2 : 	cout << "\nEnter the element to be removed : ";
-						cin >> x;
-						remove(x);
-						break;
-			case 3 : 	cout << "\nEnter the element to be searched : ";
-						cin >> x;
-						search(x);
-						break;
-			case 4 : 	show();
-						cout << endl;
-						break;
-		}
+		printf("Data can tim: %d\n", findIndex(L, index)->data);
 	}
-	while(choice!=0);
+	else
+	{
+		printf("Khong tim thay!\n");
+	}
+
+	// Tìm kiếm theo value
+	int value = 4;
+	if (findValue(L, value) != -1)
+	{
+		printf("Tim thay %d tai index = %d\n", value, findValue(L, value));
+	}
+	else
+	{
+		printf("Khong tim thay!\n");
+	}
+
+	clear(L);
 
 	return 0;
 }

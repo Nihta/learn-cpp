@@ -37,7 +37,7 @@
                 "args": [
                     "-g",
                     "${relativeFile}",
-                    "--std=c++17",
+                    "--std=c++11",
                     "-o",
                     "${fileBasenameNoExtension}.out",
                     "&&",
@@ -65,7 +65,7 @@
         {
             "label": "build no run nihta",
             "type": "shell",
-  
+
             "presentation": {
                 "echo": true,
                 "reveal": "always",
