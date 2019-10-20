@@ -9,7 +9,7 @@ using namespace std;
 
 int piecesOfDistinctLengths(int strawLength)
 {
-
+    // // //
 }
 
 int main()
