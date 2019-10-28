@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 // In size phần tử của mảng arr bắt đầu từ start
 void printArray(int arr[], int start, int size)
@@ -45,7 +46,7 @@ void handleE(int result[], int E)
 void handleM(int result[], int binFloat[], int indexComma)
 {
     int index = 0;
-    for (int i = indexComma + 1; i < 65 - indexComma - 1; i++)
+    for (int i = indexComma; i < 65 - indexComma - 1; i++)
         result[16 + index++] = binFloat[i];
 
     // Bổ sung số 0 cho đủ 64 bit (nếu thiếu)
@@ -63,11 +64,14 @@ void printBin(int result[])
 // Chuyển từ bin qua hex và in ra màn hình
 void printBinToHex(int result[])
 {
-    char dataBaseHex[15] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E'};
+    char dataBaseHex[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    int cc = 1;
     for (int i = 0; i < 80; i += 4)
     {
         int value = result[i] * 8 + result[i + 1] * 4 + result[i + 2] * 2 + result[i + 3];
         printf("%c", dataBaseHex[value]);
+        if (cc++ % 2 == 0)
+            printf(" ");
     }
     printf("H");
 }
@@ -189,17 +193,47 @@ void solution(double X)
 
 int main()
 {
+
+    printf("Nhap so can chuyen doi: ");
+    char data[99];
+    scanf("%s", &data);
+    int i = 0;
+    int isPhanSo = 0;
+    while (data[i] != '\0')
+    {
+        if (data[i] == '/')
+        {
+            isPhanSo = 1;
+            break;
+        }
+        i++;
+    }
     double X;
-    printf("Nhap X = ");
-    scanf("%lf", &X);
+    if (isPhanSo)
+    {
+        char tu[99];
+        char mau[99];
+        int i = 0;
+        int j = 0;
+        int z = 0;
+        while (data[i] != '/')
+        {
+            tu[j++] = data[i];
+            i++;
+        }
+        tu[i++] = '\0';
+        while (data[i] != '\0')
+        {
+            mau[z++] = data[i];
+            i++;
+        }
+        mau[i++] = '\0';
 
+        X = atof(tu) / atof(mau);
+    }
+    else
+        X = atof(data);
     system("cls");
-
-    printf("%lf -> IEEE 754/85 (80bit)\n", X);
     solution(X);
-
-    printf("\n===============================================================");
-    printf("============================================");
-
     return 0;
 }
