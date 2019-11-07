@@ -1,4 +1,4 @@
-# Nạp chồng
+# Operator Overloading
 
 ## Overview
 
@@ -22,7 +22,7 @@
 
 **Cách nạp chồng**:
 
-|Dạng toán tử|Phương thức của lớp|Hàm toàn cục|
+|Dạng toán tử|Member function|Non-member and Friend function|
 |--|--|--|
 aa@bb|aa.operator@(bb)|operator@(aa,bb)
 @aa|aa.operator@()|operator@(aa)
@@ -47,7 +47,7 @@ aa@|aa.operator@(int)|operator@(aa,int)
 Toán tử một ngôi (unary) trong c++ hoạt động trên một toán hạng đơn:
 
 - Nạp chồng toán tử tăng `++` và toán tử giảm `--`
-- Toán tử một ngôi `-`
+- Toán tử một ngôi (số đối) `-`
 - Toán tử logic phủ định `!`
 
 Toán tử một ngôi hoạt động trên đối tượng mà chúng được gọi, và thường thì toán tử này xuất hiện bên trái đối tượng, dạng như: `!obj`, `-obj`, và `++obj`, nhưng đôi khi chúng có thể sử dụng như là hậu tố giống như `obj++` hoặc `obj--`.
@@ -104,7 +104,7 @@ public:
     // friend Fraction operator-(Fraction &X);
 };
 
-/* Hàm toàn cục
+/* Friend function
 Fraction operator-(Fraction &X)
 {
     if (X.denominator < 0)
@@ -179,7 +179,7 @@ void Fraction::display()
     cout << this->numerator << "/" << this->denominator << endl;
 }
 
-/* Hàm toàn cục
+/* Friend function
 Fraction operator+(Fraction a, Fraction b)
 {
     Fraction res;
@@ -248,7 +248,7 @@ public:
     // friend bool operator>(Fraction a, Fraction b);
 };
 
-/* Hàm toàn cục
+/* Friend function
 bool operator>(Fraction a, Fraction b)
 {
     return a.numerator*b.denominator > b.numerator * a.denominator;
@@ -403,7 +403,7 @@ int main()
 }
 ```
 
-**Nạp chồng hàm toàn cục**:
+**Nạp chồng Friend function**:
 
 ```cpp
 // ++ Tiền tố
