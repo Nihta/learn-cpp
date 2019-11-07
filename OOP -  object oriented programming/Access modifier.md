@@ -1,8 +1,8 @@
 # Access modifier
 
-## Access modifier trong C++
+## Access modifier C++
 
-Access modifier trong C++  được sử dụng để triển khai một tính năng quan trọng của Lập trình hướng đối tượng được gọi là Data Hiding.
+Access modifier trong C++  được sử dụng để triển khai một tính năng quan trọng của lập trình hướng đối tượng được gọi là Data Hiding.
 
 Chúng ta cùng xem xét một ví dụ sau:
 
@@ -31,24 +31,29 @@ Private Access modifier cũng là access modifier mặc định của lớp.
 **Ví dụ**:
 
 ```cpp
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-class HinhTron {
-    private:  
-        double banKinh;
-    public:
-        double  TinhDienTich() {
-            return 3.14 * banKinh * banKinh;
-        }
+class HinhTron
+{
+private:
+    double banKinh;
+
+public:
+    double TinhDienTich()
+    {
+        return 3.14 * banKinh * banKinh;
+    }
 };
 
-int main() {
+int main()
+{
     HinhTron ht;
-    // Chung ta thu truy cap du lieu thanh vien private ben ngoai lop
+    // Thử truy cập dữ liệu thành viên private bên ngoài class
     ht.banKinh = 3.5;
 
     cout << "Dien tich cua hinh tron la:" << ht.TinhDienTich();
+
     return 0;
 }
 ```
@@ -69,26 +74,31 @@ Tuy nhiên, chúng ta có thể truy cập gián tiếp các thành viên dữ l
 Ví dụ
 
 ```cpp
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-class HinhTron {
-    private:  
-        double banKinh;
-    public:
-        void TinhDienTich(double bk) {
-            banKinh = bk;
-            double dienTich = 3.14 * banKinh * banKinh;
-            cout << "Ban kinh la: " << banKinh << endl;
-            cout << "Dien tich la: " << dienTich << endl;
-        }
+class HinhTron
+{
+private:
+    double banKinh;
+
+public:
+    void TinhDienTich(double bk)
+    {
+        banKinh = bk;
+        double dienTich = 3.14 * banKinh * banKinh;
+        cout << "Ban kinh la: " << banKinh << endl;
+        cout << "Dien tich la: " << dienTich << endl;
+    }
 };
 
-int main() {
+int main()
+{
 
     HinhTron ht;
     double banKinh = 2;
     ht.TinhDienTich(banKinh);
+
     return 0;
 }
 ```
@@ -104,27 +114,31 @@ Dien tich la: 12.56
 
 Tất cả các thành viên lớp được khai báo dưới dạng public sẽ có sẵn cho tất cả mọi người. Các thành viên dữ liệu và các hàm thành viên được khai báo public cũng có thể được truy cập bởi các lớp khác.
 
-Các thành viên public của một lớp có thể được truy cập từ bất cứ đâu trong chương trình bằng cách sử dụng toán tử truy cập thành viên trực tiếp (.) với đối tượng của lớp đó.
+Các thành viên public của một lớp có thể được truy cập từ bất cứ đâu trong chương trình bằng cách sử dụng toán tử truy cập thành viên trực tiếp (`.`) với đối tượng của lớp đó.
 
 **Ví dụ**:
 
 ```cpp
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-class HinhTron {
-    public:
-        double banKinh;
-        double  TinhDienTich() {
-            return 3.14 * banKinh * banKinh;
-        }
+class HinhTron
+{
+public:
+    double banKinh;
+    double TinhDienTich()
+    {
+        return 3.14 * banKinh * banKinh;
+    }
 };
 
-int main() {
+int main()
+{
     HinhTron ht;
     ht.banKinh = 3.5;
-    cout << "Ban kinh cua hinh tron la: " << ht.banKinh << endl;  
+    cout << "Ban kinh cua hinh tron la: " << ht.banKinh << endl;
     cout << "Dien tich cua hinh tron la:" << ht.TinhDienTich();
+
     return 0;
 }
 ```
@@ -149,25 +163,29 @@ Ví dụ
 using namespace std;
 
 // Lớp cha
-class Cha {
-    protected:
-        string diaChi;
+class Cha
+{
+protected:
+    string diaChi;
 };
 
 // Lớp con
 class Con : public Cha
 {
-    public:
-        void ThietLapDiaChi(string dc) {
-            diaChi = dc;
-        }
+public:
+    void ThietLapDiaChi(string dc)
+    {
+        diaChi = dc;
+    }
 
-        void HienThi() {
-            cout << "Dia chi la: " << diaChi << endl;
-        }
+    void HienThi()
+    {
+        cout << "Dia chi la: " << diaChi << endl;
+    }
 };
 
-int main() {
+int main()
+{
     Con cn;
     cn.ThietLapDiaChi("Dien Chau, Nghe An");
     cn.HienThi();

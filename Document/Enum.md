@@ -1,6 +1,6 @@
-# Cách tạo và sử dụng enum
+# Enum
 
-## Enum trong C++
+## Enum C++
 
 Enum trong C ++ là kiểu dữ liệu chứa các hằng số cố định.
 
@@ -153,7 +153,7 @@ int main()
 Và kết quả sau khi thực thi chương trình trên như sau:
 
 ```html
-Gia tri cua cac phan tu cua enum Nam: 
+Gia tri cua cac phan tu cua enum Nam:
    Thang: 1
    Thang: 2
    Thang: 3
