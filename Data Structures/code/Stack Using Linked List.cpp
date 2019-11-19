@@ -1,75 +1,63 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-struct node
+struct Node
 {
 	int val;
-	node *next;
+	Node *link;
 };
 
-
-node *top;
-
-void push(int x)
+struct Stack
 {
-	node *n = new node;
-	n->val=x;
-	n->next=top;
-	top=n;
+	Node *top = NULL;
+};
+
+void push(Stack &st, int x)
+{
+	Node *n = new Node;
+	n->val = x;
+	n->link = st.top;
+	st.top = n;
 }
 
-void pop()
+Node *pop(Stack &st)
 {
-	if (top==NULL)
+	if (st.top == NULL)
 	{
-		cout<<"\nUnderflow";
+		cout << "ERROR! Stack empty!" << endl;
+		return NULL;
 	}
-	else
-	{
-		node *t = top;
-		cout<<"\n"<<t->val<<" deleted";
-		top=top->next;
-		delete t;
-	}
+
+	Node *top = st.top;
+	st.top = st.top->link;
+	Node *res = new Node;
+	res->val = top->val;
+	delete top;
+
+	return res;
 }
 
-void show()
+void show(const Stack &st)
 {
-	node *t=top;
-	while(t!=NULL)
+	Node *top = st.top;
+	cout << "\nStack: ";
+	while (top != NULL)
 	{
-		cout<<t->val<<"\n";
-		t=t->next;
+		cout << top->val << " ";
+		top = top->link;
 	}
 }
 
 int main()
 {
-	int ch, x;
-	do
-	{
-		cout<<"\n1. Push";
-		cout<<"\n2. Pop";
-		cout<<"\n3. Print";
-		cout<<"\nEnter Your Choice : ";
-		cin>>ch;
-		if (ch==1)
-		{
-			cout<<"\nInsert : ";
-			cin>>x;
-			push(x);
-		}
-		else if (ch==2)
-		{
-			pop();
-		}
-		else if (ch==3)
-		{
-			show();
-		}
-	}
-	while(ch!=0);
+	Stack st;
+	push(st, 1);
+	push(st, 2);
+	push(st, 3);
+	show(st);
+
+	pop(st);
+	show(st);
 
 	return 0;
 }
-

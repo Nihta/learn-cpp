@@ -2,3 +2,4 @@
 *.exe
 test.cpp
 test-full.cpp
+Test/

@@ -1,101 +1,67 @@
-# Cấu trúc dữ liệu cây
+# Tree
 
 ## Contents
 
-* [1 Cấu trúc dữ liệu cây](#1-Cấu-trúc-dữ-liệu-cây)
+* [1 Cấu trúc dữ liệu cây](#1-Tree-&-Binary-tree)
 * [2 Duyệt cây](#2-Duyệt-cây)
-* [3 Cây tìm kiếm nhị phân](#3-Cây-tìm-kiếm-nhị-phân)
+* [3 Cây tìm kiếm nhị phân (BST)](#3-Binary-Search-Tree)
 * [4 Cây AVL](#4-Cây-AVL)
 * [5 Cây SPLAY](#5-Cây-SPLAY)
 * [6 Cây khung - Spanning Tree](#6-Cây-khung)
 * [7 Cấu trúc dữ liệu Heap](#7-Heap)
 
-## 1 Cấu trúc dữ liệu cây
+## 1 Tree & Binary tree
 
-### 1.0 Cấu trúc dữ liệu cây
+Cấu trúc dữ liệu cây (tree) là một tập hợp hữu hạn các phần tử gọi là các nút (node) và các cạnh nối các cặp nút lại với nhau mà không tạo thành chu trình. Nói cách khác, cây là 1 đồ thị không có chu trình.
 
-Cấu trúc dữ liệu cây biểu diễn các nút (node) được kết nối bởi các cạnh. Chúng ta sẽ tìm hiểu về Cây nhị phân (Binary Tree) và Cây tìm kiếm nhị phân (Binary Search Tree) trong phần này.
+Cây nhị phân (binary tree) là một cấu trúc dữ liệu đặc biệt được sử dụng cho mục đích lưu trữ dữ liệu. Một cây nhị phân có một điều kiện đặc biệt là mỗi nút (node) có thể có tối đa hai nút con. Một cây nhị phân tận dụng lợi thế của hai kiểu cấu trúc dữ liệu: một mảng đã sắp thứ tự và một danh sách liên kết (linked list), do đó việc tìm kiếm sẽ nhanh như trong mảng đã sắp thứ tự và các thao tác chèn và xóa cũng sẽ nhanh như trong linked list.
 
-Cây nhị phân là một cấu trúc dữ liệu đặc biệt được sử dụng cho mục đích lưu trữ dữ liệu. Một cây nhị phân có một điều kiện đặc biệt là mỗi nút có thể có tối đa hai nút con. Một cây nhị phân tận dụng lợi thế của hai kiểu cấu trúc dữ liệu: một mảng đã sắp thứ tự và một danh sách liên kết (Linked List), do đó việc tìm kiếm sẽ nhanh như trong mảng đã sắp thứ tự và các thao tác chèn và xóa cũng sẽ nhanh bằng trong Linked List.
+**Một số khái niệm liên quan**:
 
-![Tree](img/tree.jpg)
-
-### 1.1 Các khái niệm cơ bản về cây nhị phân
-
-Một số khái niệm quan trọng liên quan tới cây nhị phân:
-
-* **Đường**: là một dãy các nút cùng với các cạnh của một cây.
-* **Nút gốc (Root)**: nút trên cùng của cây được gọi là nút gốc. Một cây sẽ chỉ có một nút gốc và một đường xuất phát từ nút gốc tới bất kỳ nút nào khác. Nút gốc là nút duy nhất không có bất kỳ nút cha nào.
-* **Nút cha**: bất kỳ nút nào ngoại trừ nút gốc mà có một cạnh hướng lên một nút khác thì được gọi là nút cha.
-Nút con: nút ở dưới một nút đã cho được kết nối bởi cạnh dưới của nó được gọi là nút con của nút đó.
-Nút lá: nút mà không có bất kỳ nút con nào thì được gọi là nút lá.
-* **Cây con**: cây con biểu diễn các con của một nút.
-* **Truy cập**: kiểm tra giá trị của một nút khi điều khiển là đang trên một nút đó.
-* **Duyệt**: duyệt qua các nút theo một thứ tự nào đó.
-* **Bậc**: bậc của một nút biểu diễn số con của một nút. Nếu nút gốc có bậc là 0, thì nút con tiếp theo sẽ có bậc là 1, và nút cháu của nó sẽ có bậc là 2, …
+* **Nút gốc (root)**: nút trên cùng của cây được gọi là root. Một cây sẽ chỉ có một root và một path xuất phát từ root tới bất kỳ nútnút nào khác. Root là nút duy nhất không có bất kỳ nút cha nào.
+* **Nút cha (parent)**: bất kỳ nút nào ngoài root mà có một cạnh hướng lên một nút khác thì được gọi là nút cha.
+* **Nút con (child)**: nút ở dưới một nút đã cho được kết nối bởi cạnh dưới của nó được gọi là nút con của nút đó.
+* **Nút lá (leaf)**: nút không có bất kỳ nút con nào.
+* **Cây con (subtree)**: cây con biểu diễn các con của một nút.
+* **Bậc của node (node's degree)**: là số cây con của node đó.
+* **Bậc của cây (tree degree)**: là bậc lớn nhất của các nút trong cây. Cây có bậc N gọi là cây N-Phân (N-tree)
+* **Mức của một node (node's level)**: bằng mức của nút gốc cây con chứa nó cộng thêm 1, trong đó mức của root bằng 1.
+* **Chiều cao hay chiều sâu của một cây (height or depth)**: là mức cao nhất của các nút trong cây.
+* **Đường (path)** là một chuỗi các nút dọc theo các cạnh của cây.
+* **Chiều dài đường đi của một nút**: là số nút tính từ root để đi đến nút đó, chiều dài đường đi của root luôn luôn bằng 1.
+* **Chiều dài đường đi của một cây**: là tổng tất cả chiều dài đường đi của tất cả các nút trên cây.
+* **Truy cập (visiting)**: kiểm tra giá trị của một nút khi điều khiển đang nằm trên nút.
+* **[Duyệt (traversing)](#2-Duyệt-cây)**: duyệt qua các nút theo một thứ tự nào đó.
 * **Khóa (Key)**: biểu diễn một giá trị của một nút dựa trên những gì mà một thao tác tìm kiếm thực hiện trên nút.
+* **Rừng (forest)**: là tập hợp các cây, mmột cây khi mất gốc thì sẽ trở thành rừng.
 
-### 1.2 Biểu diễn cây tìm kiếm nhị phân
+[Come back contents ^](#Contents)
 
-Cây tìm kiếm nhị phân biểu diễn một hành vi đặc biệt. Con bên trái của một nút phải có giá trị nhỏ hơn giá trị của nút cha (của nút con này) và con bên phải của nút phải có giá trị lớn hơn giá trị của nút cha (của nút con này).
-
-![Cây tìm kiếm nhị phân](img/tree2.jpg)
-
-Chúng ta đang triển khai cây bởi sử dụng đối tượng nút và kết nối chúng thông qua các tham chiếu.
-
-### 1.3 Nút (Node) trong cây tìm kiếm nhị phân
-
-Một nút sẽ có cấu trúc như dưới đây. Nút có phần dữ liệu và phần tham chiếu tới các nút con bên trái và nút con bên phải.
-
-```c++
-struct node {
-    int data;
-    struct node *leftChild;
-    struct node *rightChild;
-};
-```
-
-Trong một cây, tất cả các nút chia sẻ cùng một cấu trúc.
-
-### 1.4 Hoạt động cơ bản trên cây tìm kiếm nhị phân
-
-* **Chèn**: chèn một phần tử vào trong một cây/ tạo một cây.
-* **Tìm kiếm**: tìm kiếm một phần tử trong một cây.
-* **Duyệt tiền thứ tự**: duyệt một cây theo cách thức duyệt tiền thứ tự.
-* **Duyệt trung thứ tự**: duyệt một cây theo cách thức duyệt trung thứ tự.
-* **Duyệt hậu thứ tự**: duyệt một cây theo cách thức duyệt hậu thứ tự.
-
-### 1.5 Hoạt động chèn trong cây tìm kiếm nhị phân
-
-Bước chèn đầu tiên sẽ tạo thành cây. Tiếp đó là sẽ chèn từng phần tử vào trong cây. Đầu tiên chúng ta cần xác định vị trí chính xác của nó. Bắt đầu tìm kiếm từ nút gốc, sau đó nếu dữ liệu là nhỏ hơn giá trị khóa, thì tìm kiếm vị trí rỗng trong cây con bên trái và chèn dữ liệu. Nếu không nhỏ hơn, tìm vị trí rỗng trong cây con bên phải và chèn dữ liệu. 
-
-### 1.6 Hoạt động tìm kiếm trong cây nhị phân
-
-Mỗi khi một phần tử cần tìm kiếm: bắt đầu tìm kiếm từ nút gốc, sau đó nếu dữ liệu là nhỏ hơn giá trị khóa, thì tìm kiếm phần tử trong cây con bên trái; nếu không nhỏ hơn thì tìm kiếm phần tử trong cây con bên phải.
-
-[TOP ^](#!)
+-----
 
 ## 2 Duyệt cây
 
-### 2.1 Duyệt cây
-
 Duyệt cây là một tiến trình để truy cập tất cả các nút của một cây và cũng có thể in các giá trị của các nút này. Bởi vì tất cả các nút được kết nối thông qua các cạnh (hoặc các link), nên chúng ta luôn luôn bắt đầu truy cập từ nút gốc. Do đó, chúng ta không thể truy cập ngẫu nhiên bất kỳ nút nào trong cây. Có ba phương thức mà chúng ta có thể sử dụng để duyệt một cây:
 
-* Duyệt tiền thứ tự (Pre-order Traversal)
-* Duyệt trung thứ tự (In-order Traversal)
-* Duyệt hậu thứ tự (Post-order Traversal)
+* [Duyệt tiền thứ tự (Pre-order Traversal)](#2.1-Preorder-Traversal)
+* [Duyệt trung thứ tự (In-order Traversal)](#2.2-Inorder-Traversal)
+* [Duyệt hậu thứ tự (Post-order Traversal)](#2.3-Postorder-Traversal)
 
-Nói chung, chúng ta duyệt một cây để tìm kiếm hay là để xác định vị trí phần tử hoặc khóa đã cho trong cây hoặc là để in tất cả giá trị mà cây đó chứa.
+Duyệt một cây chủ yếu là để tìm kiếm hay là để xác định vị trí phần tử hoặc khóa đã cho trong cây hoặc là để in tất cả giá trị mà cây đó chứa.
 
-### 2.2 Duyệt tiền thứ tự trong cây nhị phân
+### 2.1 Preorder Traversal
 
 Trong cách thức duyệt tiền thứ tự trong cây nhị phân, nút gốc được duyệt đầu tiên, sau đó sẽ duyệt cây con bên trái và cuối cùng sẽ duyệt cây con bên phải.
 
 ![Duyệt tiền thứ tự](img/duyet-tree1.jpg)
 
-Ở hình ví dụ minh họa trên, A là nút gốc. Chúng ta bắt đầu từ A, và theo cách thức duyệt tiền thứ tự, đầu tiên chúng ta truy cập chính nút gốc A này và sau đó di chuyển tới nút con bên trái B của nó. B cũng được duyệt theo cách thức duyệt tiền thứ tự. Và tiến trình tiếp tục cho tới khi tất cả các nút đều đã được truy cập. Kết quả của cách thức duyệt tiền thứ tự cây này sẽ là: **A → B → D → E → C → F → G**
+Ở hình ví dụ minh họa trên, A là nút gốc. Chúng ta bắt đầu từ A, và theo cách thức duyệt tiền thứ tự, đầu tiên chúng ta truy cập chính nút gốc A này và sau đó di chuyển tới nút con bên trái B của nó. B cũng được duyệt theo cách thức duyệt tiền thứ tự. Và tiến trình tiếp tục cho tới khi tất cả các nút đều đã được truy cập. Kết quả của cách thức duyệt tiền thứ tự cây này sẽ là:
 
-### 2.3 Duyệt trung thứ tự trong cây nhị phân
+```cpp
+A → B → D → E → C → F → G
+```
+
+### 2.2 Inorder Traversal
 
 Trong cách duyệt này, cây con bên trái được truy cập đầu tiên, sau đó là nút gốc và sau đó là cây con bên phải. Bạn nên luôn luôn ghi nhớ rằng mỗi nút đều có thể biểu diễn một cây con.
 
@@ -103,20 +69,35 @@ Nếu một cây nhị phân được duyệt trung thứ tự, kết quả tạ
 
 ![Duyệt trung thứ tự](img/duyet-tree2.jpg)
 
-Ở hình ví dụ minh họa trên, A là nút gốc. Với phương thức duyệt trung thứ tự, chúng ta bắt đầu từ nút gốc A, di chuyển tới cây con bên trái B của nút gốc. Tại đây, B cũng được duyệt theo cách thức duyệt trung thứ tự. Và tiến trình tiếp tục cho đến khi tất cả các nút đã được truy cập. Kết quả của cách thức duyệt trung thứ tự cho cây trên sẽ là: **D → B → E → A → F → C → G**
+Ở hình ví dụ minh họa trên, A là nút gốc. Với phương thức duyệt trung thứ tự, chúng ta bắt đầu từ nút gốc A, di chuyển tới cây con bên trái B của nút gốc. Tại đây, B cũng được duyệt theo cách thức duyệt trung thứ tự. Và tiến trình tiếp tục cho đến khi tất cả các nút đã được truy cập. Kết quả của cách thức duyệt trung thứ tự cho cây trên sẽ là:
 
-### 2.4 Duyệt hậu thứ tự trong cây nhị phân
-Trong cách thức duyệt hậu thứ tự trong cây nhị phân, nút gốc của cây sẽ được truy cập cuối cùng, do đó bạn cần chú ý. Đầu tiên, chúng ta duyệt cây con bên trái, sau đó sẽ duyệt cây con bên phải và cuối cùng là duyệt nút gốc.
+```cpp
+D → B → E → A → F → C → G
+```
+
+### 2.3 Postorder Traversal
+
+Trong cách thức duyệt hậu thứ tự trong cây nhị phân, nút gốc của cây sẽ được truy cập cuối cùng. Đầu tiên, chúng ta duyệt cây con bên trái, sau đó sẽ duyệt cây con bên phải và cuối cùng là duyệt nút gốc.
 
 ![Duyệt hậu thứ tự](img/duyet-tree3.jpg)
 
-Ở hình ví dụ minh họa trên, A là nút gốc. Chúng ta bắt đầu từ A, và theo cách duyệt hậu thứ tự, đầu tiên chúng ta truy cập cây con bên trái B. B cũng được duyệt theo cách thứ duyệt hậu thứ tự. Và tiến trình sẽ tiếp tục tới khi tất cả các nút đã được truy cập. Kết quả của cách thức duyệt hậu thứ tự của cây con trên sẽ là: **D → E → B → F → G → C → A**
+Ở hình ví dụ minh họa trên, A là nút gốc. Chúng ta bắt đầu từ A, và theo cách duyệt hậu thứ tự, đầu tiên chúng ta truy cập cây con bên trái B. B cũng được duyệt theo cách thứ duyệt hậu thứ tự. Và tiến trình sẽ tiếp tục tới khi tất cả các nút đã được truy cập. Kết quả của cách thức duyệt hậu thứ tự của cây con trên sẽ là:
 
-[TOP ^](#!)
+```cpp
+D → E → B → F → G → C → A
+```
 
-## 3 Cây tìm kiếm nhị phân
+[Come back contents ^](#Contents)
 
-### 3.1 Cây tìm kiếm nhị phân (Binary Search Tree)
+-----
+
+## 3 Binary Search Tree
+
+### 3.1 Cây tìm kiếm nhị phân
+
+Cây nhị phân là cây mà mỗi nút có tối đa 2 cây con.
+
+![Cây tìm kiếm nhị phân](img/tree2.jpg)
 
 Một cây tìm kiếm nhị phân (Binary Search Tree – viết tắt là BST) là một cây mà trong đó tất cả các nút đều có các đặc điểm sau:
 
@@ -125,11 +106,33 @@ Một cây tìm kiếm nhị phân (Binary Search Tree – viết tắt là BST)
 
 Vì thế có thể nói rằng, một cây tìm kiếm nhị phân (BST) phân chia tất cả các cây con của nó thành hai phần: cây con bên trái và cây con bên phải và có thể được định nghĩa như sau:
 
-`left_subtree (keys) ≤ node (key) ≤ right_subtree (keys)`
+```cpp
+left_subtree (keys)  ≤  node (key)  ≤  right_subtree (keys)
+```
 
-### 3.2 Biểu diễn cây tìm kiếm nhị phân
+> Nút có giá trị nhỏ nhất nằm ở nút trái nhất của cây, nút có giá trị lớn nhất nằm ở nút phải nhất của cây
 
-Cây tìm kiếm nhị phân (BST) là một tập hợp bao gồm các nút được sắp xếp theo cách để chúng có thể duy trì hoặc tuân theo các đặc điểm của cây tìm kiếm nhị phân. Mỗi một nút thì đều có một khóa và giá trị liên kết với nó. Trong khi tìm kiếm, khóa cần tìm được so sánh với các khóa trong cây tìm kiếm nhị phân (BST) và nếu tìm thấy, giá trị liên kết sẽ được thu nhận.
+**Một node sẽ có cấu trúc như sau**:
+
+```c++
+struct Node {
+    int data;
+    struct Node *leftChild;
+    struct Node *rightChild;
+};
+```
+
+**Hoạt động cơ bản**:
+
+* **Chèn**: chèn một phần tử vào trong một cây/tạo một cây.
+* **Tìm kiếm**: tìm kiếm một phần tử trong một cây.
+* **Duyệt tiền thứ tự (preorder)**: duyệt một cây theo thứ tự nút gốc trước (node-left-right).
+* **Duyệt trung thứ tự (inorder)**: duyệt một cây theo thứ tự nút gốc ở giữa (left-node-right).
+* **Duyệt hậu thứ tự (postorder)**: duyệt một cây theo thứ tự nút gốc ở sau (left-right-node).
+
+**Biểu diễn cây tìm kiếm nhị phân**:
+
+Cây tìm kiếm nhị phân (BST) là một tập hợp bao gồm các nút được sắp xếp theo cách để chúng có thể duy trì hoặc tuân theo các đặc điểm của cây tìm kiếm nhị phân. Mỗi một nút thì đều có một khóa và giá trị liên kết với nó. Trong khi tìm kiếm, khóa cần tìm được so sánh với các khóa trong cây tìm kiếm nhị phân (BST) và nếu tìm thấy giá trị liên kết sẽ được thu nhận.
 
 Ví dụ một cây tìm kiếm nhị phân (BST):
 
@@ -137,35 +140,17 @@ Ví dụ một cây tìm kiếm nhị phân (BST):
 
 Từ hình ví dụ minh họa trên ta thấy rằng, khóa của nút gốc có giá trị 27 và tất cả khóa bên trái của cây con bên trái đều có giá trị nhỏ hơn 27 này và tất cả các khóa bên phải của cây con bên phải đều có giá trị lớn hơn 27.
 
-### 3.3 Nút (Node) trong cây tìm kiếm nhị phân
+**Hoạt động tìm kiếm**:
 
-Một nút có một vài dữ liệu, tham chiếu tới các nút con bên trái và nút con bên phải của nó.
+Bắt đầu tìm kiếm từ nút gốc, sau đó nếu dữ liệu là nhỏ hơn giá trị khóa (key), thì sẽ tìm phần tử ở cây con bên trái, nếu lớn hơn thì sẽ tìm phần tử ở cây con bên phải.
 
-``` c++
-struct node {
-   int data;   
-   struct node *leftChild;
-   struct node *rightChild;
-};
-```
+**Hoạt động chèn**:
 
-### 3.4 Hoạt động cơ bản trên cây tìm kiếm nhị phân
+Đầu tiên chúng ta cần xác định vị trí chính xác của phần tử này. Bắt đầu tìm kiếm từ root, sau đó nếu dữ liệu là nhỏ hơn giá trị khóa (key), thì tìm kiếm vị trí còn trống ở cây con bên trái và chèn dữ liệu vào đó, nếu dữ liệu là lớn hơn thì tìm kiếm vị trí còn trống ở cây con bên phải và chèn dữ liệu vào đó.
 
-* **Hoạt động tìm kiếm**: tìm kiếm một phần tử trong một cây.
-* **Hoạt động chèn**: chèn một phần tử vào trong một cây.
-* **Hoạt động duyệt tiền thứ tự:** duyệt một cây theo cách thức duyệt tiền thứ tự.
-* **Hoạt động duyệt trung thứ tự**: duyệt một cây theo cách thứ duyệt trung thứ tự.
-* **Hoạt động duyệt hậu thứ tự**: duyệt một cây theo cách thức duyệt hậu thứ tự.
+[Come back contents ^](#Contents)
 
-### 3.5 Hoạt động tìm kiếm trong cây tìm kiếm nhị phân
-
-Mỗi khi một phần tử được tìm kiếm: bắt đầu tìm kiếm từ nút gốc, sau đó nếu dữ liệu là nhỏ hơn giá trị khóa (key), thì sẽ tìm phần tử ở cây con bên trái; nếu lớn hơn thì sẽ tìm phần tử ở cây con bên phải.
-
-### 3.6 Hoạt động chèn trong cây tìm kiếm nhị phân
-
-Mỗi khi một phần tử được chèn: đầu tiên chúng ta cần xác định vị trí chính xác của phần tử này. Bắt đầu tìm kiếm từ nút gốc, sau đó nếu dữ liệu là nhỏ hơn giá trị khóa (key), thì tìm kiếm vị trí còn trống ở cây con bên trái và chèn dữ liệu vào đó; nếu dữ liệu là nhỏ hơn thì tìm kiếm vị trí còn sống ở cây con bên phải và chèn dữ liệu vào đó.
-
-[TOP ^](#!)
+-----
 
 ## 4 Cây AVL
 
@@ -202,7 +187,9 @@ Hai kỹ thuật quay đầu tiên là các kỹ thuật quay đơn và hai kỹ
 
 [Chi tiết kỹ thuật quay](https://hoclaptrinh.vn/tutorial/cau-truc-du-lieu-amp-giai-thuat-55-bai/cay-avl-trong-cau-truc-du-lieu-va-giai-thuat)
 
-[TOP ^](#!)
+[Come back contents ^](#Contents)
+
+-----
 
 ## 5 Cây SPLAY
 
@@ -221,7 +208,9 @@ Có 2 phép quay trong cây SPLAY , đó là :
 * Kỹ thuật xoay đơn
 * Kỹ thuật xoay kép
 
-[TOP ^](#!)
+[Come back contents ^](#Contents)
+
+-----
 
 ## 6 Cây khung
 
@@ -275,7 +264,9 @@ Trong một đồ thị có trọng số (Weighted Graph), một cây khung nh�
 
 Hai giải thuật này đều thuộc loại [Giải thuật tham lam (Greedy Algorithms)](#1).
 
-[TOP ^](#!)
+[Come back contents ^](#Contents)
+
+-----
 
 ## 7 Heap
 
@@ -331,4 +322,6 @@ Hoạt động xóa trong Max (hoặc Min) Heap luôn luôn diễn ra tại nút
 
 ![Max Heap](img/max-heap2.gif)
 
-[TOP ^](#!)
+[Come back contents ^](#Contents)
+
+-----

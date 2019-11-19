@@ -122,6 +122,7 @@ void removeHead(List &L)
 	}
 	else if (L.first->next == NULL) // Nếu list có một node
 	{
+		delete L.first;
 		L.first = L.last = NULL;
 	}
 	else // Nếu như list >= 2 Node
@@ -141,6 +142,7 @@ void removeTail(List &L)
 	}
 	else if (L.first->next == NULL) // Nếu list có một node
 	{
+		delete L.first;
 		L.first = L.last = NULL;
 	}
 	else // Nếu như list >= 2 Node
