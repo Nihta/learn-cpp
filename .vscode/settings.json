@@ -1,7 +1,7 @@
 {
     // Cấu hình visual code ----------------------------------------------------
     "editor.fontSize": 16,
-    // "editor.fontWeight": "bold"
+    "editor.fontWeight": "normal",
     "editor.cursorBlinking": "expand",
     "editor.wordWrap": "on",
     "editor.rulers": [80],
@@ -11,6 +11,9 @@
     "editor.tabCompletion": "on",
     "editor.renderWhitespace": "selection",
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "editor.fontFamily": "Fira Code, Roboto Mono, monospace",
+    "editor.fontLigatures": true,
+
     // -------------------------------------------------------------------------
     "files.exclude": {
         "*.exe": true,
