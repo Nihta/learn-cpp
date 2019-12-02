@@ -18,12 +18,14 @@
 		"scope": "cpp",
 		"prefix": "cout-vector",
 		"body": [
-			"ostream &operator<<(ostream &os, vector<${1:int}> v)",
+			"// Output Operator Overloading",
+			"template <typename T>",
+			"ostream &operator<<(ostream &os, vector<T> vt)",
 			"{",
-			"    os << \"(\" << v.size() << \") { \";",
-			"    for (auto it = v.begin(); it != v.end(); it++)",
-			"        os << *it << (it + 1 != v.end() ? \", \" : \" \");",
-			"    os << \"}\";",
+			"    os << \"(\" << vt.size() << \") { \";",
+			"    for (auto it = vt.begin(); it != vt.end(); it++)",
+			"        os << *it << (it + 1 != vt.end() ? \", \" : \"\");",
+			"    os << \" }\";",
 			"    return os;",
 			"}"
 		],
@@ -47,5 +49,21 @@
 			"}"
 		],
 		"description": "Nhập vector dạng: SốLượngPhầnTử Phầntử1 PhầnTử2 ..."
+	},
+	"Find with regex": {
+		"scope": "cpp",
+		"prefix": "find-with-regex",
+		"body": [
+			"vector<string> findWithRegex(string text)",
+			"{",
+			"    // Regex",
+			"    regex re(\"[A-Za-z]+\");",
+			"    vector<string> res;",
+			"    for (auto reIt = sregex_iterator(text.begin(), text.end(), re);reIt != sregex_iterator(); ++reIt)",
+			"        res.push_back(reIt->str());",
+			"    return res;",
+			"}"
+		],
+		"description": "Tìm tất cả string khớp với regex"
 	}
 }

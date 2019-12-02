@@ -1,8 +1,0 @@
-3.      Tran Thi Kim Oanh    57SPTH     500
-4.            Dao Thi Man    58SPTH     600
-5.       Hoàng Thi Huyen    59SPTH     650
-6.             Le Thi Hoa    58SPTH     700
-7.           Pham Thi Lan    59CNTT     750
-8.         Le Thi Mai Hoa    59CNTT     750
-9.       Nguyen Hoang Nam    58CNTT     800
------TONG SO SINH VIEN CO HOC PHI >500 LA: 7-----

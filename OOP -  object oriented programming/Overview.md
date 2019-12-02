@@ -5,7 +5,7 @@
 Lập trình hướng đối tượng (Object Oriented Programming - OOP) là một mô hình sử dụng lớp (class) và đối tượng (object) trong chương trình hay nói cách khác là mô hình hóa chương trình chúng ta bằng những lớp, đối tượng.
 
 Những khái niệm là chúng ta cần phải biết trong lập trình hướng đối tượng đó là:
-
+o0O
 - [Lớp (Class)](#class)
 - [Đối tượng (Object)](#Object)
 - [Thừa kế (Inheritance)](#Inheritance)

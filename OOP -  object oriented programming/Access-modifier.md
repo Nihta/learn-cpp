@@ -1,6 +1,6 @@
 # Access modifier
 
-## Access modifier C++
+## Phạm vi truy xuất
 
 Access modifier trong C++  được sử dụng để triển khai một tính năng quan trọng của lập trình hướng đối tượng được gọi là Data Hiding.
 

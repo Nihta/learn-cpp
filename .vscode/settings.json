@@ -11,7 +11,7 @@
     "editor.tabCompletion": "on",
     "editor.renderWhitespace": "selection",
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
-    "editor.fontFamily": "Fira Code, Roboto Mono, monospace",
+    "editor.fontFamily": "Fira Code, Monospace",
     "editor.fontLigatures": true,
 
     // -------------------------------------------------------------------------
