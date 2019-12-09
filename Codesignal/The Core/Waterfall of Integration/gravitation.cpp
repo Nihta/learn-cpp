@@ -10,6 +10,7 @@
 */
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 // Output Operator Overloading
@@ -23,10 +24,34 @@ ostream &operator<<(ostream &os, vector<T> vt)
     return os;
 }
 
+/*
+ * Ý tưởng: Ở mỗi cột tính số lượng '.' từ vị trí dấu '#' cao nhất đến đáy hộp
+ * Các cột có số '.' theo cách tính trên ít nhất là các cột bất động đầu tiên
+*/
 std::vector<int> gravitation(std::vector<std::string> rows)
 {
+    std::vector<int> vCount;
+    for (int j = 0; j < rows[0].size(); j++)
+    {
+        bool start = false;
+        int count = 0;
+        for (int i = 0; i < rows.size(); i++)
+        {
+            if (rows[i][j] == '#') // Bắt đầu đếm số lượng '.'
+                start = true;
+            if (start && rows[i][j] == '.')
+                count++;
+        }
+        vCount.push_back(count);
+    }
 
-    return {1, 2};
+    int minCount = *min_element(vCount.begin(), vCount.end());
+    std::vector<int> res;
+    for (int i = 0; i < vCount.size(); i++)
+        if (vCount[i] == minCount)
+            res.push_back(i);
+
+    return res;
 }
 
 int main()

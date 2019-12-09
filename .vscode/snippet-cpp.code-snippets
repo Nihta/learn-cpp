@@ -65,5 +65,16 @@
 			"}"
 		],
 		"description": "Tìm tất cả string khớp với regex"
+	},
+	"LCM": {
+		"scope": "cpp",
+		"prefix": "lcm",
+		"body": [
+			"int lcm(int a, int b)",
+			"{",
+			"\treturn a * b / std::__gcd(a, b);",
+			"}"
+		],
+		"description": "Tìm bội chung nhỏ nhất"
 	}
 }
