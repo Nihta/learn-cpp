@@ -10,7 +10,7 @@ using namespace std;
 
 vector<int> sortByHeight(vector<int> v)
 {
-    // Vector vSort bao gồm các phần tử khác -1
+    // Vector vSort bao gồm các phần tử  khác -1
     vector<int> vSort;
     for(auto i : v)
         if(i != -1)
