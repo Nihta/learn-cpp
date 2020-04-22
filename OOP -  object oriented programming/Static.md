@@ -2,6 +2,12 @@
 
 ## Static data member
 
+**Định nghĩa**:
+
+Static trong c++ là dữ liệu của class không phải là dữ liệu của đối tượng. Static trong c++ tồn tại như một biến toàn cục. Hay nói cách khác dữ liệu static xuất hiện trước khi bạn khởi tạo đối tượng của lớp, và nó chỉ tồn tại duy nhất.
+
+Các thành viên static có thể là public, private hoặc protected.
+
 **Các đặc tính chính**:
 
 - Một bản duy nhất tồn tại trong suốt quá trình chạy của chương trình.
@@ -64,7 +70,7 @@ using namespace std;
 class Test
 {
 private:
-    //khai báo thành phần static
+    // Khai báo thành phần static
     static int count;
 
 public:
