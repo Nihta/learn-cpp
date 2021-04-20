@@ -1,40 +1,29 @@
 {
-    "version": "0.2.0",
-    "configurations": [
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "g++ - Build and debug active file",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
         {
-            "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
-            "name": "(gdb) Launch Nihta",
-            "preLaunchTask": "build no run nihta",
-            "type": "cppdbg",
-            "request": "launch",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceRoot}",
-            "environment": [],
-            "externalConsole": false,
-            "setupCommands": [{
-                "description": "Enable pretty-printing for gdb",
-                "text": "-enable-pretty-printing",
-                "ignoreFailures": true
-            }],
-            "logging": {
-                "engineLogging": false,
-                "trace": false
-            },
-            "windows": {
-                "externalConsole": false,
-                "program": "${workspaceRoot}/${fileBasenameNoExtension}.exe",
-                "MIMode": "gdb",
-                "miDebuggerPath": "C:\\Program Files (x86)\\mingw-w64\\i686-8.1.0-posix-dwarf-rt_v6-rev0\\mingw32\\bin\\gdb.exe",
-            },
-            "linux": {
-                "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
-                "MIMode": "gdb"
-            },
-            "osx": {
-                "program": "${workspaceRoot}/${fileBasenameNoExtension}.out",
-                "MIMode": "lldb"
-            }
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
         }
-    ]
+      ],
+      "preLaunchTask": "C/C++: g++ build active file",
+      "miDebuggerPath": "/usr/bin/gdb"
+    }
+  ]
 }
